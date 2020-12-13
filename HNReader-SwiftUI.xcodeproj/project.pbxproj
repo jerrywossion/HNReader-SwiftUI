@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,11 @@
 		E89ADAB82585D1CD00AC8828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAB72585D1CD00AC8828 /* ContentView.swift */; };
 		E89ADABA2585D1CE00AC8828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E89ADAB92585D1CE00AC8828 /* Assets.xcassets */; };
 		E89ADABD2585D1CE00AC8828 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E89ADABC2585D1CE00AC8828 /* Preview Assets.xcassets */; };
+		E89ADAC92585DED500AC8828 /* HNParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAC82585DED500AC8828 /* HNParser.swift */; };
+		E89ADACD2585DF4F00AC8828 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E89ADACC2585DF4F00AC8828 /* SwiftSoup */; };
+		E89ADAD12585E23800AC8828 /* HNData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAD02585E23800AC8828 /* HNData.swift */; };
+		E89ADAD52585E52D00AC8828 /* HNItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAD42585E52D00AC8828 /* HNItemView.swift */; };
+		E89ADAD82585EDD100AC8828 /* HNWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAD72585EDD100AC8828 /* HNWebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +26,10 @@
 		E89ADABC2585D1CE00AC8828 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E89ADABE2585D1CE00AC8828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E89ADABF2585D1CE00AC8828 /* HNReader_SwiftUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HNReader_SwiftUI.entitlements; sourceTree = "<group>"; };
+		E89ADAC82585DED500AC8828 /* HNParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNParser.swift; sourceTree = "<group>"; };
+		E89ADAD02585E23800AC8828 /* HNData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNData.swift; sourceTree = "<group>"; };
+		E89ADAD42585E52D00AC8828 /* HNItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNItemView.swift; sourceTree = "<group>"; };
+		E89ADAD72585EDD100AC8828 /* HNWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E89ADACD2585DF4F00AC8828 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,12 +63,15 @@
 		E89ADAB42585D1CD00AC8828 /* HNReader-SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				E89ADAC72585DEB600AC8828 /* Data */,
 				E89ADAB52585D1CD00AC8828 /* HNReader_SwiftUIApp.swift */,
 				E89ADAB72585D1CD00AC8828 /* ContentView.swift */,
 				E89ADAB92585D1CE00AC8828 /* Assets.xcassets */,
 				E89ADABE2585D1CE00AC8828 /* Info.plist */,
 				E89ADABF2585D1CE00AC8828 /* HNReader_SwiftUI.entitlements */,
 				E89ADABB2585D1CE00AC8828 /* Preview Content */,
+				E89ADAD42585E52D00AC8828 /* HNItemView.swift */,
+				E89ADAD72585EDD100AC8828 /* HNWebView.swift */,
 			);
 			path = "HNReader-SwiftUI";
 			sourceTree = "<group>";
@@ -69,6 +82,15 @@
 				E89ADABC2585D1CE00AC8828 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E89ADAC72585DEB600AC8828 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E89ADAD02585E23800AC8828 /* HNData.swift */,
+				E89ADAC82585DED500AC8828 /* HNParser.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +109,9 @@
 			dependencies = (
 			);
 			name = "HNReader-SwiftUI";
+			packageProductDependencies = (
+				E89ADACC2585DF4F00AC8828 /* SwiftSoup */,
+			);
 			productName = "HNReader-SwiftUI";
 			productReference = E89ADAB22585D1CD00AC8828 /* HNReader-SwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -115,6 +140,9 @@
 				Base,
 			);
 			mainGroup = E89ADAA92585D1CD00AC8828;
+			packageReferences = (
+				E89ADACB2585DF4F00AC8828 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = E89ADAB32585D1CD00AC8828 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -143,6 +171,10 @@
 			files = (
 				E89ADAB82585D1CD00AC8828 /* ContentView.swift in Sources */,
 				E89ADAB62585D1CD00AC8828 /* HNReader_SwiftUIApp.swift in Sources */,
+				E89ADAC92585DED500AC8828 /* HNParser.swift in Sources */,
+				E89ADAD12585E23800AC8828 /* HNData.swift in Sources */,
+				E89ADAD52585E52D00AC8828 /* HNItemView.swift in Sources */,
+				E89ADAD82585EDD100AC8828 /* HNWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +366,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E89ADACB2585DF4F00AC8828 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E89ADACC2585DF4F00AC8828 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E89ADACB2585DF4F00AC8828 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E89ADAAA2585D1CD00AC8828 /* Project object */;
 }
