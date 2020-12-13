@@ -9,24 +9,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    enum Tab: Int {
+        case page = 0
+        case comment = 1
+    }
+
     @State var selection = Set<HNItem>()
+    @State var selectedTab: Tab = .page
     @ObservedObject var data = HNData()
 
     var body: some View {
-        NavigationView {
+        return NavigationView {
             List(data.items, id: \.self, selection: $selection) { item in
                 HNItemView(item: item)
             }
 
             if let item = selection.first {
-                TabView {
-                    HNWebView(url: item.sourceUrl)
+                TabView(selection: $selectedTab) {
+                    HNPageView(url: item.sourceUrl)
                         .tabItem { Text(item.from) }
-                    HNWebView(url: item.commentUrl)
+
+                    HNPageView(url: item.commentUrl)
                         .tabItem { Text(item.comments) }
                 }
             }
         }
+        .onChange(
+            of: selection,
+            perform: { value in
+                selectedTab = .page
+            }
+        )
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 Button(
