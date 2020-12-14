@@ -46,6 +46,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84CD4A21258759DE00302F8F /* AppKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AppKit;
+			sourceTree = "<group>";
+		};
+		84CD4A22258759F700302F8F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E89ADAD42585E52D00AC8828 /* HNItemView.swift */,
+				E89ADAD72585EDD100AC8828 /* HNWebView.swift */,
+				E89ADADE2586170000AC8828 /* HNPageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84CD4A2325875A0100302F8F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E89ADAB72585D1CD00AC8828 /* ContentView.swift */,
+				E89ADAB52585D1CD00AC8828 /* HNReader_SwiftUIApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		84CD4A2425875A1200302F8F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				E89ADAB92585D1CE00AC8828 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		E89ADAA92585D1CD00AC8828 = {
 			isa = PBXGroup;
 			children = (
@@ -66,15 +100,13 @@
 			isa = PBXGroup;
 			children = (
 				E89ADAC72585DEB600AC8828 /* Data */,
-				E89ADAB52585D1CD00AC8828 /* HNReader_SwiftUIApp.swift */,
-				E89ADAB72585D1CD00AC8828 /* ContentView.swift */,
-				E89ADAB92585D1CE00AC8828 /* Assets.xcassets */,
+				84CD4A22258759F700302F8F /* View */,
+				84CD4A21258759DE00302F8F /* AppKit */,
+				84CD4A2325875A0100302F8F /* App */,
+				84CD4A2425875A1200302F8F /* Resource */,
+				E89ADABB2585D1CE00AC8828 /* Preview Content */,
 				E89ADABE2585D1CE00AC8828 /* Info.plist */,
 				E89ADABF2585D1CE00AC8828 /* HNReader_SwiftUI.entitlements */,
-				E89ADABB2585D1CE00AC8828 /* Preview Content */,
-				E89ADAD42585E52D00AC8828 /* HNItemView.swift */,
-				E89ADAD72585EDD100AC8828 /* HNWebView.swift */,
-				E89ADADE2586170000AC8828 /* HNPageView.swift */,
 			);
 			path = "HNReader-SwiftUI";
 			sourceTree = "<group>";
