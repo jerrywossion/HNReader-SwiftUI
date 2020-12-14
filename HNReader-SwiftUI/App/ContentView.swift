@@ -14,10 +14,11 @@ struct ContentView: View {
         case comment
     }
 
-    @State var selection = Set<HNItem>()
-    @State var selectedTab: Tab = .page
-    @ObservedObject var data = HNData()
-    @ObservedObject var userSettings = UserSettings()
+    @State private var selection = Set<HNItem>()
+    @State private var selectedItem: HNItem?
+    @State private var selectedTab: Tab = .page
+    @ObservedObject private var data = HNData()
+    @ObservedObject private var userSettings = UserSettings()
 
     var body: some View {
         return NavigationView {
@@ -34,11 +35,13 @@ struct ContentView: View {
                             userSettings.visitedUrls,
                             forKey: UserSettings.Key.visitedUrls.rawValue
                         )
+                        selectedItem = item
+                        selectedTab = .page
                     }
                 }
             )
 
-            if let item = selection.first {
+            if let item = selectedItem {
                 TabView(selection: $selectedTab) {
                     HNWebViewController(url: item.sourceUrl)
                         .tabItem { Text(item.from) }
@@ -55,6 +58,7 @@ struct ContentView: View {
                 Button(
                     action: {
                         data.homePage()
+                        clearSelection()
                     },
                     label: {
                         Image(sfSymbol: .newspaper)
@@ -65,6 +69,7 @@ struct ContentView: View {
                 Button(
                     action: {
                         data.prevPage()
+                        clearSelection()
                     },
                     label: {
                         Image(sfSymbol: .arrowBackward)
@@ -75,6 +80,7 @@ struct ContentView: View {
                 Button(
                     action: {
                         data.nextPage()
+                        clearSelection()
                     },
                     label: {
                         Image(sfSymbol: .arrowForward)
@@ -128,10 +134,14 @@ struct ContentView: View {
             }
         }
     }
+
+    private func clearSelection() {
+        selection.removeAll()
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(selectedTab: .page)
+        ContentView()
     }
 }

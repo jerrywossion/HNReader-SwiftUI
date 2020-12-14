@@ -36,7 +36,8 @@ class HNData: ObservableObject {
         getHNItems(
             page: currentPage,
             completion: { [self] items in
-                self.items = items
+                self.items.removeAll()
+                self.items.append(contentsOf: items)
             }
         )
     }
