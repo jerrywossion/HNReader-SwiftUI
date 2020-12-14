@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HNItemView: View {
     @State var item: HNItem
+    @EnvironmentObject var userSettings: UserSettings
 
     var body: some View {
         HStack(alignment: .top) {
@@ -18,8 +19,15 @@ struct HNItemView: View {
                 .foregroundColor(.orange)
 
             VStack(alignment: .leading) {
-                Text(item.title)
-                    .frame(alignment: .leading)
+                if userSettings.visitedUrls.contains(where: { (url, _) -> Bool in url == item.sourceUrl.absoluteString }
+                ) {
+                    Text(item.title)
+                        .frame(alignment: .leading)
+                        .foregroundColor(.gray)
+                } else {
+                    Text(item.title)
+                        .frame(alignment: .leading)
+                }
 
                 HStack {
                     Text(item.score)

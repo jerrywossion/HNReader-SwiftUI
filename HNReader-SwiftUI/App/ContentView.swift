@@ -9,37 +9,47 @@
 import SwiftUI
 
 struct ContentView: View {
-    enum Tab: Int {
-        case page = 0
-        case comment = 1
+    enum Tab {
+        case page
+        case comment
     }
 
     @State var selection = Set<HNItem>()
     @State var selectedTab: Tab = .page
     @ObservedObject var data = HNData()
+    @ObservedObject var userSettings = UserSettings()
 
     var body: some View {
         return NavigationView {
             List(data.items, id: \.self, selection: $selection) { item in
                 HNItemView(item: item)
+                    .environmentObject(userSettings)
             }
+            .onChange(
+                of: selection,
+                perform: { selection in
+                    if let item = selection.first {
+                        userSettings.visitedUrls[item.sourceUrl.absoluteString] = 1
+                        UserDefaults.standard.setValue(
+                            userSettings.visitedUrls,
+                            forKey: UserSettings.Key.visitedUrls.rawValue
+                        )
+                    }
+                }
+            )
 
             if let item = selection.first {
                 TabView(selection: $selectedTab) {
-                    HNPageView(url: item.sourceUrl)
+                    HNWebViewController(url: item.sourceUrl)
                         .tabItem { Text(item.from) }
+                        .tag(Tab.page)
 
-                    HNPageView(url: item.commentUrl)
+                    HNWebViewController(url: item.commentUrl)
                         .tabItem { Text(item.comments) }
+                        .tag(Tab.comment)
                 }
             }
         }
-        .onChange(
-            of: selection,
-            perform: { value in
-                selectedTab = .page
-            }
-        )
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 Button(
@@ -47,7 +57,7 @@ struct ContentView: View {
                         data.homePage()
                     },
                     label: {
-                        Image(systemName: "newspaper")
+                        Image(sfSymbol: .newspaper)
                     }
                 )
             }
@@ -57,7 +67,7 @@ struct ContentView: View {
                         data.prevPage()
                     },
                     label: {
-                        Image(systemName: "arrow.backward")
+                        Image(sfSymbol: .arrowBackward)
                     }
                 )
             }
@@ -67,7 +77,7 @@ struct ContentView: View {
                         data.nextPage()
                     },
                     label: {
-                        Image(systemName: "arrow.forward")
+                        Image(sfSymbol: .arrowForward)
                     }
                 )
             }
@@ -81,7 +91,38 @@ struct ContentView: View {
                             )
                     },
                     label: {
-                        Image(systemName: "sidebar.left")
+                        Image(sfSymbol: .sidebarLeft)
+                    }
+                )
+            }
+            ToolbarItem(placement: .navigation) {
+                Button(
+                    action: {
+                        if let item = selection.first {
+                            NotificationCenter.default.post(
+                                name: .reloadPage,
+                                object: nil,
+                                userInfo: [
+                                    UserInfoKey.urlToReload: selectedTab == .page ? item.sourceUrl : item.commentUrl
+                                ]
+                            )
+                        }
+                    },
+                    label: {
+                        Image(sfSymbol: .arrowClockwise)
+                    }
+                )
+            }
+            ToolbarItem(placement: .navigation) {
+                Button(
+                    action: {
+                        if let item = selection.first {
+                            let url = selectedTab == .page ? item.sourceUrl : item.commentUrl
+                            NSWorkspace.shared.open(url)
+                        }
+                    },
+                    label: {
+                        Image(sfSymbol: .safari)
                     }
                 )
             }
@@ -91,6 +132,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(selectedTab: .page)
     }
 }

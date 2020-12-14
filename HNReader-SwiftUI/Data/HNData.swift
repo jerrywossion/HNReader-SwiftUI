@@ -62,3 +62,17 @@ class HNData: ObservableObject {
         fetchHNItems()
     }
 }
+
+class UserSettings: ObservableObject {
+    enum Key: String {
+        case visitedUrls
+    }
+
+    @Published var visitedUrls: [String: Int] = [:]
+
+    init() {
+        if let visitedUrls = UserDefaults.standard.dictionary(forKey: Key.visitedUrls.rawValue) as? [String: Int] {
+            self.visitedUrls = visitedUrls
+        }
+    }
+}

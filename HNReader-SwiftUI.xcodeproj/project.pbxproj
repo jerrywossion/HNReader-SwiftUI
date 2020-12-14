@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84CD4A2625875B3F00302F8F /* HNWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD4A2525875B3F00302F8F /* HNWebViewController.swift */; };
+		84CD4A2E2587991000302F8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD4A2D2587991000302F8F /* Constants.swift */; };
 		E89ADAB62585D1CD00AC8828 /* HNReader_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAB52585D1CD00AC8828 /* HNReader_SwiftUIApp.swift */; };
 		E89ADAB82585D1CD00AC8828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAB72585D1CD00AC8828 /* ContentView.swift */; };
 		E89ADABA2585D1CE00AC8828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E89ADAB92585D1CE00AC8828 /* Assets.xcassets */; };
@@ -15,11 +17,11 @@
 		E89ADACD2585DF4F00AC8828 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E89ADACC2585DF4F00AC8828 /* SwiftSoup */; };
 		E89ADAD12585E23800AC8828 /* HNData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAD02585E23800AC8828 /* HNData.swift */; };
 		E89ADAD52585E52D00AC8828 /* HNItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAD42585E52D00AC8828 /* HNItemView.swift */; };
-		E89ADAD82585EDD100AC8828 /* HNWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAD72585EDD100AC8828 /* HNWebView.swift */; };
-		E89ADADF2586170000AC8828 /* HNPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADADE2586170000AC8828 /* HNPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84CD4A2525875B3F00302F8F /* HNWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNWebViewController.swift; sourceTree = "<group>"; };
+		84CD4A2D2587991000302F8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E89ADAB22585D1CD00AC8828 /* HNReader-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HNReader-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E89ADAB52585D1CD00AC8828 /* HNReader_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNReader_SwiftUIApp.swift; sourceTree = "<group>"; };
 		E89ADAB72585D1CD00AC8828 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -30,8 +32,6 @@
 		E89ADAC82585DED500AC8828 /* HNParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNParser.swift; sourceTree = "<group>"; };
 		E89ADAD02585E23800AC8828 /* HNData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNData.swift; sourceTree = "<group>"; };
 		E89ADAD42585E52D00AC8828 /* HNItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNItemView.swift; sourceTree = "<group>"; };
-		E89ADAD72585EDD100AC8828 /* HNWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNWebView.swift; sourceTree = "<group>"; };
-		E89ADADE2586170000AC8828 /* HNPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +49,7 @@
 		84CD4A21258759DE00302F8F /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
+				84CD4A2525875B3F00302F8F /* HNWebViewController.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -57,8 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				E89ADAD42585E52D00AC8828 /* HNItemView.swift */,
-				E89ADAD72585EDD100AC8828 /* HNWebView.swift */,
-				E89ADADE2586170000AC8828 /* HNPageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -124,6 +123,7 @@
 			children = (
 				E89ADAD02585E23800AC8828 /* HNData.swift */,
 				E89ADAC82585DED500AC8828 /* HNParser.swift */,
+				84CD4A2D2587991000302F8F /* Constants.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -205,12 +205,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E89ADAB82585D1CD00AC8828 /* ContentView.swift in Sources */,
+				84CD4A2625875B3F00302F8F /* HNWebViewController.swift in Sources */,
 				E89ADAB62585D1CD00AC8828 /* HNReader_SwiftUIApp.swift in Sources */,
 				E89ADAC92585DED500AC8828 /* HNParser.swift in Sources */,
+				84CD4A2E2587991000302F8F /* Constants.swift in Sources */,
 				E89ADAD12585E23800AC8828 /* HNData.swift in Sources */,
 				E89ADAD52585E52D00AC8828 /* HNItemView.swift in Sources */,
-				E89ADADF2586170000AC8828 /* HNPageView.swift in Sources */,
-				E89ADAD82585EDD100AC8828 /* HNWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
