@@ -147,13 +147,45 @@ class WebViewController: NSViewController {
 }
 
 struct HNWebViewController: NSViewControllerRepresentable {
-    let url: URL
+    @Binding var url: URL?
+
+    func makeCoordinator() -> HNWebViewCoordinator {
+        return HNWebViewCoordinator(url)
+    }
 
     func makeNSViewController(context: Context) -> WebViewController {
-        return WebViewController()
+        return context.coordinator.webViewController
     }
 
     func updateNSViewController(_ webViewController: WebViewController, context: Context) {
+        guard let url = url, url != context.coordinator.lastUrl || !context.coordinator.loaded else {
+            return
+        }
+        if url != context.coordinator.lastUrl {
+            context.coordinator.lastUrl = url
+        }
         webViewController.load(url)
+    }
+}
+
+class HNWebViewCoordinator: NSObject, WKNavigationDelegate {
+    let webViewController = WebViewController()
+    var lastUrl: URL? {
+        didSet {
+            loaded = false
+        }
+    }
+    var loaded: Bool = false
+
+    init(_ url: URL?) {
+        lastUrl = url
+
+        super.init()
+
+        webViewController.wkWebView.navigationDelegate = self
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        loaded = true
     }
 }

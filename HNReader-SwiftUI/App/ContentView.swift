@@ -15,8 +15,11 @@ struct ContentView: View {
     }
 
     @State private var selection = Set<HNItem>()
-    @State private var selectedItem: HNItem?
     @State private var selectedTab: Tab = .page
+    @State private var selectedItemSourceUrl: URL?
+    @State private var selectedItemCommentUrl: URL?
+    @State private var selectedItemFrom: String = "Page"
+    @State private var selectedItemComments: String = "Comments"
     @ObservedObject private var data = HNData()
     @ObservedObject private var userSettings = UserSettings()
 
@@ -35,26 +38,27 @@ struct ContentView: View {
                             userSettings.visitedUrls,
                             forKey: UserSettings.Key.visitedUrls.rawValue
                         )
-                        selectedItem = item
                         selectedTab = .page
+                        selectedItemSourceUrl = item.sourceUrl
+                        selectedItemCommentUrl = item.commentUrl
+                        selectedItemFrom = item.from
+                        selectedItemComments = item.comments
                     }
                 }
             )
 
-            if let item = selectedItem {
-                TabView(selection: $selectedTab) {
-                    HNWebViewController(url: item.sourceUrl)
-                        .tabItem { Text(item.from) }
-                        .tag(Tab.page)
+            TabView(selection: $selectedTab) {
+                HNWebViewController(url: $selectedItemSourceUrl)
+                    .tabItem { Text(selectedItemFrom) }
+                    .tag(Tab.page)
 
-                    HNWebViewController(url: item.commentUrl)
-                        .tabItem { Text(item.comments) }
-                        .tag(Tab.comment)
-                }
+                HNWebViewController(url: $selectedItemCommentUrl)
+                    .tabItem { Text(selectedItemComments) }
+                    .tag(Tab.comment)
             }
         }
         .toolbar {
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .automatic) {
                 Button(
                     action: {
                         data.homePage()
@@ -65,7 +69,7 @@ struct ContentView: View {
                     }
                 )
             }
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .automatic) {
                 Button(
                     action: {
                         data.prevPage()
@@ -76,7 +80,7 @@ struct ContentView: View {
                     }
                 )
             }
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .automatic) {
                 Button(
                     action: {
                         data.nextPage()
@@ -87,7 +91,7 @@ struct ContentView: View {
                     }
                 )
             }
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .automatic) {
                 Button(
                     action: {
                         NSApp.keyWindow?.firstResponder?
@@ -101,7 +105,7 @@ struct ContentView: View {
                     }
                 )
             }
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .automatic) {
                 Button(
                     action: {
                         if let item = selection.first {
@@ -119,7 +123,7 @@ struct ContentView: View {
                     }
                 )
             }
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .automatic) {
                 Button(
                     action: {
                         if let item = selection.first {
