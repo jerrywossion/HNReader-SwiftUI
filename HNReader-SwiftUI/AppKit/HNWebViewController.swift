@@ -87,9 +87,9 @@ class WebViewController: NSViewController {
             wkWebView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ]
         let progressBarConstraints: [NSLayoutConstraint] = [
-            progressBar.topAnchor.constraint(equalTo: view.topAnchor),
-            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            progressBar.topAnchor.constraint(equalTo: wkWebView.topAnchor),
+            progressBar.leadingAnchor.constraint(equalTo: wkWebView.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: wkWebView.trailingAnchor),
         ]
 
         NSLayoutConstraint.activate(wkWebViewConstraints)
@@ -123,18 +123,6 @@ class WebViewController: NSViewController {
 
     deinit {
         subscriptions.forEach { $0.cancel() }
-    }
-
-    override func viewWillLayout() {
-        super.viewWillLayout()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        guard let superView = view.superview else { return }
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.topAnchor),
-            view.leadingAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.bottomAnchor),
-        ])
     }
 
     func load(_ url: URL) {
@@ -187,5 +175,21 @@ class HNWebViewCoordinator: NSObject, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         loaded = true
+    }
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated {
+            guard let url = navigationAction.request.url else {
+                decisionHandler(.cancel)
+                return
+            }
+            if url == lastUrl {
+                decisionHandler(.allow)
+            } else {
+                NSWorkspace.shared.open(url)
+                decisionHandler(.cancel)
+            }
+        }
+        decisionHandler(.allow)
     }
 }
