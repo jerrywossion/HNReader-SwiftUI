@@ -59,7 +59,7 @@ class WebViewController: NSViewController {
     let progressBar = ProgressBar()
     let wkWebView = WKWebView()
 
-    private var subscriptions: Set<AnyCancellable> = []
+    private var subscription: AnyCancellable?
 
     override func loadView() {
         view = NSView()
@@ -95,7 +95,7 @@ class WebViewController: NSViewController {
         NSLayoutConstraint.activate(wkWebViewConstraints)
         NSLayoutConstraint.activate(progressBarConstraints)
 
-        wkWebView.publisher(for: \.estimatedProgress)
+        subscription = wkWebView.publisher(for: \.estimatedProgress)
             .sink { [weak self] value in
                 self?.progressBar.progress = value
                 if value == 0 {
@@ -108,29 +108,14 @@ class WebViewController: NSViewController {
                     self?.progressBar.isHidden = false
                 }
             }
-            .store(in: &subscriptions)
-
-        NotificationCenter.default.publisher(for: .reloadPage)
-            .sink { [weak self] notification in
-                if let userInfo = notification.userInfo, let url = userInfo[UserInfoKey.urlToReload] as? URL,
-                    self?.wkWebView.url == url
-                {
-                    self?.reload()
-                }
-            }
-            .store(in: &subscriptions)
     }
 
     deinit {
-        subscriptions.forEach { $0.cancel() }
+        subscription?.cancel()
     }
 
     func load(_ url: URL) {
         wkWebView.load(URLRequest(url: url))
-    }
-
-    func reload() {
-        wkWebView.reload()
     }
 }
 
@@ -177,7 +162,11 @@ class HNWebViewCoordinator: NSObject, WKNavigationDelegate {
         loaded = true
     }
 
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
         if navigationAction.navigationType == .linkActivated {
             guard let url = navigationAction.request.url else {
                 decisionHandler(.cancel)

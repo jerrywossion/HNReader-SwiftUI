@@ -14,7 +14,7 @@ struct ContentView: View {
         case comment
     }
 
-    @State private var selection = Set<HNItem>()
+    @State private var selection: HNItem?
     @State private var selectedTab: Tab = .page
     @State private var selectedItemSourceUrl: URL?
     @State private var selectedItemCommentUrl: URL?
@@ -29,10 +29,11 @@ struct ContentView: View {
                 HNItemView(item: item)
                     .environmentObject(userSettings)
             }
+            .frame(minWidth: 500)
             .onChange(
                 of: selection,
                 perform: { selection in
-                    if let item = selection.first {
+                    if let item = selection {
                         userSettings.visitedUrls[item.sourceUrl.absoluteString] = 1
                         UserDefaults.standard.setValue(
                             userSettings.visitedUrls,
@@ -56,91 +57,7 @@ struct ContentView: View {
                     .tabItem { Text(selectedItemComments) }
                     .tag(Tab.comment)
             }
-        }
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {
-                        data.homePage()
-                        clearSelection()
-                    },
-                    label: {
-                        Image(sfSymbol: .newspaper)
-                    }
-                )
-            }
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {
-                        data.prevPage()
-                        clearSelection()
-                    },
-                    label: {
-                        Image(sfSymbol: .arrowBackward)
-                    }
-                )
-            }
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {
-                        data.nextPage()
-                        clearSelection()
-                    },
-                    label: {
-                        Image(sfSymbol: .arrowForward)
-                    }
-                )
-            }
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {
-                        NSApp.keyWindow?.firstResponder?
-                            .tryToPerform(
-                                #selector(NSSplitViewController.toggleSidebar(_:)),
-                                with: nil
-                            )
-                    },
-                    label: {
-                        Image(sfSymbol: .sidebarLeft)
-                    }
-                )
-            }
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {
-                        if let item = selection.first {
-                            NotificationCenter.default.post(
-                                name: .reloadPage,
-                                object: nil,
-                                userInfo: [
-                                    UserInfoKey.urlToReload: selectedTab == .page ? item.sourceUrl : item.commentUrl
-                                ]
-                            )
-                        }
-                    },
-                    label: {
-                        Image(sfSymbol: .arrowClockwise)
-                    }
-                )
-            }
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {
-                        if let item = selection.first {
-                            let url = selectedTab == .page ? item.sourceUrl : item.commentUrl
-                            NSWorkspace.shared.open(url)
-                        }
-                    },
-                    label: {
-                        Image(sfSymbol: .safari)
-                    }
-                )
-            }
-        }
-    }
-
-    private func clearSelection() {
-        selection.removeAll()
+         }
     }
 }
 

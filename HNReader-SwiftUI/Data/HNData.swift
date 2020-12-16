@@ -6,6 +6,7 @@
 //  Copyright © 2020 Jie Weng. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 struct HNItem: Equatable, Hashable {
@@ -31,6 +32,12 @@ struct HNItem: Equatable, Hashable {
 class HNData: ObservableObject {
     @Published var items: [HNItem]
     private var currentPage: Int = 1
+    private var subscriptions: Set<AnyCancellable> = []
+    private lazy var notificationSubscriptions: [Notification.Name: () -> Void] = [
+        .prevPage: self.prevPage,
+        .nextPage: self.nextPage,
+        .homePage: self.homePage,
+    ]
 
     private func fetchHNItems() {
         getHNItems(
@@ -45,6 +52,10 @@ class HNData: ObservableObject {
     init() {
         self.items = []
         fetchHNItems()
+
+        NotificationCenter.default.publisher(for: .prevPage).sink { [weak self] _ in self?.prevPage() }.store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: .nextPage).sink { [weak self] _ in self?.nextPage() }.store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: .homePage).sink { [weak self] _ in self?.homePage() }.store(in: &subscriptions)
     }
 
     func prevPage() {

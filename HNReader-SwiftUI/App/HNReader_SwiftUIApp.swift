@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-@main
+//@main
 struct HNReader_SwiftUIApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
