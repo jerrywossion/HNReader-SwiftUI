@@ -53,9 +53,12 @@ class HNData: ObservableObject {
         self.items = []
         fetchHNItems()
 
-        NotificationCenter.default.publisher(for: .prevPage).sink { [weak self] _ in self?.prevPage() }.store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: .nextPage).sink { [weak self] _ in self?.nextPage() }.store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: .homePage).sink { [weak self] _ in self?.homePage() }.store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: .prevPage).sink { [weak self] _ in self?.prevPage() }
+            .store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: .nextPage).sink { [weak self] _ in self?.nextPage() }
+            .store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: .homePage).sink { [weak self] _ in self?.homePage() }
+            .store(in: &subscriptions)
     }
 
     func prevPage() {

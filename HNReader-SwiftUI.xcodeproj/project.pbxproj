@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		847393B7258B2CBE003E168E /* HNDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847393B6258B2CBE003E168E /* HNDetailView.swift */; };
 		84B3A151258A02AA009329D1 /* HNToolbarProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A150258A02AA009329D1 /* HNToolbarProvider.swift */; };
 		84B3A174258A0EFF009329D1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A173258A0EFF009329D1 /* main.swift */; };
 		84B3A177258A1179009329D1 /* HNAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A176258A1179009329D1 /* HNAppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		847393B6258B2CBE003E168E /* HNDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNDetailView.swift; sourceTree = "<group>"; };
 		84B3A150258A02AA009329D1 /* HNToolbarProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNToolbarProvider.swift; sourceTree = "<group>"; };
 		84B3A173258A0EFF009329D1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		84B3A176258A1179009329D1 /* HNAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNAppDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				E89ADAD42585E52D00AC8828 /* HNItemView.swift */,
+				847393B6258B2CBE003E168E /* HNDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			files = (
 				E89ADAB82585D1CD00AC8828 /* ContentView.swift in Sources */,
 				84CD4A2625875B3F00302F8F /* HNWebViewController.swift in Sources */,
+				847393B7258B2CBE003E168E /* HNDetailView.swift in Sources */,
 				84B3A174258A0EFF009329D1 /* main.swift in Sources */,
 				E89ADAB62585D1CD00AC8828 /* HNReader_SwiftUIApp.swift in Sources */,
 				E89ADAC92585DED500AC8828 /* HNParser.swift in Sources */,

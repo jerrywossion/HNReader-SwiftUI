@@ -16,10 +16,7 @@ struct ContentView: View {
 
     @State private var selection: HNItem?
     @State private var selectedTab: Tab = .page
-    @State private var selectedItemSourceUrl: URL?
-    @State private var selectedItemCommentUrl: URL?
-    @State private var selectedItemFrom: String = "Page"
-    @State private var selectedItemComments: String = "Comments"
+    @State private var selectedItem: HNItem = HNItem(rank: "", title: "", sourceUrl: URL(string: "about:blank")!, commentUrl: URL(string: "about:blank")!, score: "", age: "", comments: "", from: "")
     @ObservedObject private var data = HNData()
     @ObservedObject private var userSettings = UserSettings()
 
@@ -40,24 +37,13 @@ struct ContentView: View {
                             forKey: UserSettings.Key.visitedUrls.rawValue
                         )
                         selectedTab = .page
-                        selectedItemSourceUrl = item.sourceUrl
-                        selectedItemCommentUrl = item.commentUrl
-                        selectedItemFrom = item.from
-                        selectedItemComments = item.comments
+                        selectedItem = item
                     }
                 }
             )
 
-            TabView(selection: $selectedTab) {
-                HNWebViewController(url: $selectedItemSourceUrl)
-                    .tabItem { Text(selectedItemFrom) }
-                    .tag(Tab.page)
-
-                HNWebViewController(url: $selectedItemCommentUrl)
-                    .tabItem { Text(selectedItemComments) }
-                    .tag(Tab.comment)
-            }
-         }
+            HNDetailView(item: $selectedItem)
+        }
     }
 }
 

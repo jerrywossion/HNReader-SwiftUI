@@ -11,6 +11,8 @@ import Combine
 import SwiftUI
 import WebKit
 
+// MARK: ProgressBar
+
 class ProgressBar: NSView {
     var minProgress: Double = 0
     var maxProgress: Double = 1
@@ -54,6 +56,8 @@ class ProgressBar: NSView {
         indicatorWidthConstraint.constant = width
     }
 }
+
+// MARK: WebViewController
 
 class WebViewController: NSViewController {
     let progressBar = ProgressBar()
@@ -119,11 +123,14 @@ class WebViewController: NSViewController {
     }
 }
 
+// MARK: HNWebViewController
+
 struct HNWebViewController: NSViewControllerRepresentable {
-    @Binding var url: URL?
+    @State var tag: String
+    @Binding var url: URL
 
     func makeCoordinator() -> HNWebViewCoordinator {
-        return HNWebViewCoordinator(url)
+        return HNWebViewCoordinator(tag: tag, url: url)
     }
 
     func makeNSViewController(context: Context) -> WebViewController {
@@ -131,7 +138,7 @@ struct HNWebViewController: NSViewControllerRepresentable {
     }
 
     func updateNSViewController(_ webViewController: WebViewController, context: Context) {
-        guard let url = url, url != context.coordinator.lastUrl || !context.coordinator.loaded else {
+        guard url != context.coordinator.lastUrl || !context.coordinator.loaded else {
             return
         }
         if url != context.coordinator.lastUrl {
@@ -141,17 +148,31 @@ struct HNWebViewController: NSViewControllerRepresentable {
     }
 }
 
+// MARK: HNWebViewCoordinator
 class HNWebViewCoordinator: NSObject, WKNavigationDelegate {
-    let webViewController = WebViewController()
-    var lastUrl: URL? {
+    static var vcPool: [String: WebViewController] = [:]
+
+    let tag: String
+    var loaded: Bool = false
+    var lastUrl: URL {
         didSet {
             loaded = false
         }
     }
-    var loaded: Bool = false
+    var webViewController: WebViewController {
+        if let vc = Self.vcPool[tag] {
+            return vc
+        } else {
+            let vc = WebViewController()
+            Self.vcPool[tag] = vc
+            return vc
+        }
+    }
 
-    init(_ url: URL?) {
-        lastUrl = url
+
+    init(tag: String, url: URL) {
+        self.tag = tag
+        self.lastUrl = url
 
         super.init()
 

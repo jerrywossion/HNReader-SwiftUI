@@ -42,20 +42,45 @@ class HNToolbarProvider: NSObject, NSToolbarDelegate {
     ) -> NSToolbarItem? {
         switch itemIdentifier {
         case .homePage:
-            return createToolbarItem(itemIdentifier: itemIdentifier, action: #selector(onHomePage(_:)), label: "HackerNews Homepage", imageSymbol: .newspaper)
+            return createToolbarItem(
+                itemIdentifier: itemIdentifier,
+                action: #selector(onHomePage(_:)),
+                label: "HackerNews Homepage",
+                imageSymbol: .newspaper
+            )
         case .prevPage:
-            return createToolbarItem(itemIdentifier: itemIdentifier, action: #selector(onPrevPage(_:)), label: "Previous Page of HackerNews List", imageSymbol: .arrowBackward)
+            return createToolbarItem(
+                itemIdentifier: itemIdentifier,
+                action: #selector(onPrevPage(_:)),
+                label: "Previous Page of HackerNews List",
+                imageSymbol: .arrowBackward
+            )
         case .nextPage:
-            return createToolbarItem(itemIdentifier: itemIdentifier, action: #selector(onNextPage(_:)), label: "Next Page of HackerNews List", imageSymbol: .arrowForward)
+            return createToolbarItem(
+                itemIdentifier: itemIdentifier,
+                action: #selector(onNextPage(_:)),
+                label: "Next Page of HackerNews List",
+                imageSymbol: .arrowForward
+            )
         case .openInBrowser:
-            return createToolbarItem(itemIdentifier: itemIdentifier, action: #selector(onOpenInBrowser(_:)), label: "Open in browser", imageSymbol: .safari)
+            return createToolbarItem(
+                itemIdentifier: itemIdentifier,
+                action: #selector(onOpenInBrowser(_:)),
+                label: "Open in browser",
+                imageSymbol: .safari
+            )
         default:
             break
         }
         return nil
     }
 
-    private func createToolbarItem(itemIdentifier: NSToolbarItem.Identifier, action: Selector, label: String, imageSymbol: SFSymbol) -> NSToolbarItem {
+    private func createToolbarItem(
+        itemIdentifier: NSToolbarItem.Identifier,
+        action: Selector,
+        label: String,
+        imageSymbol: SFSymbol
+    ) -> NSToolbarItem {
         let item = NSToolbarItem(itemIdentifier: itemIdentifier)
         item.target = self
         item.action = action
@@ -75,7 +100,7 @@ class HNToolbarProvider: NSObject, NSToolbarDelegate {
     @objc func onNextPage(_ sender: Any?) {
         NotificationCenter.default.post(name: .nextPage, object: nil)
     }
-    
+
     @objc func onOpenInBrowser(_ sender: Any?) {
         NotificationCenter.default.post(name: .openInBrowser, object: nil)
     }
