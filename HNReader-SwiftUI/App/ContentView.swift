@@ -16,7 +16,16 @@ struct ContentView: View {
 
     @State private var selection: HNItem?
     @State private var selectedTab: Tab = .page
-    @State private var selectedItem: HNItem = HNItem(rank: "", title: "", sourceUrl: URL(string: "about:blank")!, commentUrl: URL(string: "about:blank")!, score: "", age: "", comments: "", from: "")
+    @State private var selectedItem: HNItem = HNItem(
+        rank: "",
+        title: "",
+        sourceUrl: URL(string: "about:blank")!,
+        commentUrl: URL(string: "about:blank")!,
+        score: "",
+        age: "",
+        comments: "No Comments",
+        from: "Empty Page"
+    )
     @ObservedObject private var data = HNData()
     @ObservedObject private var userSettings = UserSettings()
 

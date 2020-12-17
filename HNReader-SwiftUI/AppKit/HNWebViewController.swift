@@ -63,6 +63,9 @@ class WebViewController: NSViewController {
     let progressBar = ProgressBar()
     let wkWebView = WKWebView()
 
+    private var lastUrl: URL?
+    private var loaded: Bool = false
+
     private var subscription: AnyCancellable?
 
     override func loadView() {
@@ -77,6 +80,8 @@ class WebViewController: NSViewController {
 
             self.wkWebView.customUserAgent = userAgent
         }
+
+        wkWebView.navigationDelegate = self
 
         view.addSubview(wkWebView)
         view.addSubview(progressBar)
@@ -119,66 +124,16 @@ class WebViewController: NSViewController {
     }
 
     func load(_ url: URL) {
+        if url == lastUrl && loaded {
+            return
+        }
+        lastUrl = url
+        loaded = false
         wkWebView.load(URLRequest(url: url))
     }
 }
 
-// MARK: HNWebViewController
-
-struct HNWebViewController: NSViewControllerRepresentable {
-    @State var tag: String
-    @Binding var url: URL
-
-    func makeCoordinator() -> HNWebViewCoordinator {
-        return HNWebViewCoordinator(tag: tag, url: url)
-    }
-
-    func makeNSViewController(context: Context) -> WebViewController {
-        return context.coordinator.webViewController
-    }
-
-    func updateNSViewController(_ webViewController: WebViewController, context: Context) {
-        guard url != context.coordinator.lastUrl || !context.coordinator.loaded else {
-            return
-        }
-        if url != context.coordinator.lastUrl {
-            context.coordinator.lastUrl = url
-        }
-        webViewController.load(url)
-    }
-}
-
-// MARK: HNWebViewCoordinator
-class HNWebViewCoordinator: NSObject, WKNavigationDelegate {
-    static var vcPool: [String: WebViewController] = [:]
-
-    let tag: String
-    var loaded: Bool = false
-    var lastUrl: URL {
-        didSet {
-            loaded = false
-        }
-    }
-    var webViewController: WebViewController {
-        if let vc = Self.vcPool[tag] {
-            return vc
-        } else {
-            let vc = WebViewController()
-            Self.vcPool[tag] = vc
-            return vc
-        }
-    }
-
-
-    init(tag: String, url: URL) {
-        self.tag = tag
-        self.lastUrl = url
-
-        super.init()
-
-        webViewController.wkWebView.navigationDelegate = self
-    }
-
+extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         loaded = true
     }
@@ -201,5 +156,45 @@ class HNWebViewCoordinator: NSObject, WKNavigationDelegate {
             }
         }
         decisionHandler(.allow)
+    }
+}
+
+// MARK: HNWebViewController
+
+struct HNWebViewController: NSViewControllerRepresentable {
+    @State var tag: String
+    @Binding var url: URL
+
+    func makeCoordinator() -> HNWebViewCoordinator {
+        return HNWebViewCoordinator(tag: tag, url: url)
+    }
+
+    func makeNSViewController(context: Context) -> WebViewController {
+        return context.coordinator.webViewController
+    }
+
+    func updateNSViewController(_ webViewController: WebViewController, context: Context) {
+        webViewController.load(url)
+    }
+}
+
+// MARK: HNWebViewCoordinator
+class HNWebViewCoordinator {
+    static var vcPool: [String: WebViewController] = [:]
+
+    let tag: String
+
+    var webViewController: WebViewController {
+        if let vc = Self.vcPool[tag] {
+            return vc
+        } else {
+            let vc = WebViewController()
+            Self.vcPool[tag] = vc
+            return vc
+        }
+    }
+
+    init(tag: String, url: URL) {
+        self.tag = tag
     }
 }

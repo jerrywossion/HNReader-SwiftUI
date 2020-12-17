@@ -36,30 +36,27 @@ struct HNDetailView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                 }
 
-                HStack {
-                    Button(
-                        item.from,
-                        action: {
-                            selectedTab = .page
-                        }
-                    )
-                    .buttonStyle(BorderedButtonStyle())
-                    .foregroundColor(Color.black)
+                VStack {
+                    Spacer()
 
-                    Button(
-                        item.comments,
-                        action: {
-                            selectedTab = .comment
-                        }
-                    )
-                    .buttonStyle(BorderedButtonStyle())
-                    .foregroundColor(Color.black)
+                    Picker(selection: $selectedTab, label: Text("")) {
+                        Text(item.from)
+                            .tag(Tab.page)
+
+                        Text(item.comments)
+                            .tag(Tab.comment)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .background(Color.black)
                 }
             }
-            .onChange(of: item, perform: { newItem in
-                selectedSourceUrl = newItem.sourceUrl
-                selectedCommentUrl = newItem.commentUrl
-            })
+            .onChange(
+                of: item,
+                perform: { newItem in
+                    selectedSourceUrl = newItem.sourceUrl
+                    selectedCommentUrl = newItem.commentUrl
+                }
+            )
         }
     }
 }
