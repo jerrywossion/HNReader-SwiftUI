@@ -39,15 +39,34 @@ struct HNDetailView: View {
                 VStack {
                     Spacer()
 
-                    Picker(selection: $selectedTab, label: Text("")) {
-                        Text(item.from)
-                            .tag(Tab.page)
+                    HStack {
+                        Button(item.from, action: {
+                            selectedTab = .page
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                        .frame(height: 24)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 1)
+                        .contentShape(Rectangle())
+                        .background(selectedTab == .page ? Color(NSColor.white.withAlphaComponent(0.4)) : Color.clear)
+                        .cornerRadius(12)
 
-                        Text(item.comments)
-                            .tag(Tab.comment)
+                        Button(item.comments, action: {
+                            selectedTab = .comment
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                        .frame(height: 24)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 1)
+                        .contentShape(Rectangle())
+                        .background(selectedTab == .comment ?Color(NSColor.white.withAlphaComponent(0.4)) : Color.clear)
+                        .cornerRadius(12)
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .background(Color.black)
+                    .padding(.horizontal, 2)
+                    .padding(.vertical, 2)
+                    .background(Color(NSColor.selectedTextBackgroundColor))
+                    .cornerRadius(14)
+                    .offset(y: -2)
                 }
             }
             .onChange(
