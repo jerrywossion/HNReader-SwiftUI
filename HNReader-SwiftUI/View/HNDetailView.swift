@@ -57,6 +57,10 @@ struct HNDetailView: View {
                     selectedCommentUrl = newItem.commentUrl
                 }
             )
+            .onReceive(NotificationCenter.default.publisher(for: .openInBrowser), perform: { _ in
+                let url = selectedTab == .page ? selectedSourceUrl : selectedCommentUrl
+                NSWorkspace.shared.open(url)
+            })
         }
     }
 }

@@ -154,8 +154,9 @@ extension WebViewController: WKNavigationDelegate {
                 NSWorkspace.shared.open(url)
                 decisionHandler(.cancel)
             }
+        } else {
+            decisionHandler(.allow)
         }
-        decisionHandler(.allow)
     }
 }
 

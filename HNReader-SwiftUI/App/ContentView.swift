@@ -9,13 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    enum Tab {
-        case page
-        case comment
-    }
-
     @State private var selection: HNItem?
-    @State private var selectedTab: Tab = .page
     @State private var selectedItem: HNItem = HNItem(
         rank: "",
         title: "",
@@ -45,7 +39,6 @@ struct ContentView: View {
                             userSettings.visitedUrls,
                             forKey: UserSettings.Key.visitedUrls.rawValue
                         )
-                        selectedTab = .page
                         selectedItem = item
                     }
                 }
