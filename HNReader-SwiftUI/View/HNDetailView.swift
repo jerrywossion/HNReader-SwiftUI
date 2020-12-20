@@ -19,6 +19,9 @@ struct HNDetailView: View {
     @State private var selectedSourceUrl: URL
     @State private var selectedCommentUrl: URL
 
+    @State private var isHoveringSourceButton: Bool = false
+    @State private var isHoveringCommentButton: Bool = false
+
     init(item: Binding<HNItem>) {
         _item = item
         _selectedSourceUrl = State(initialValue: item.wrappedValue.sourceUrl)
@@ -40,27 +43,47 @@ struct HNDetailView: View {
                     Spacer()
 
                     HStack {
-                        Button(item.from, action: {
-                            selectedTab = .page
-                        })
+                        Button(
+                            item.from,
+                            action: {
+                                selectedTab = .page
+                            }
+                        )
                         .buttonStyle(PlainButtonStyle())
                         .frame(height: 24)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 1)
                         .contentShape(Rectangle())
-                        .background(selectedTab == .page ? Color(NSColor.white.withAlphaComponent(0.4)) : Color.clear)
+                        .background(
+                            selectedTab == .page
+                                ? Color(NSColor.white.withAlphaComponent(0.4))
+                                : (isHoveringSourceButton ? Color(NSColor.white.withAlphaComponent(0.2)) : Color.clear)
+                        )
                         .cornerRadius(12)
+                        .onHover { hovering in
+                            isHoveringSourceButton = hovering
+                        }
 
-                        Button(item.comments, action: {
-                            selectedTab = .comment
-                        })
+                        Button(
+                            item.comments,
+                            action: {
+                                selectedTab = .comment
+                            }
+                        )
                         .buttonStyle(PlainButtonStyle())
                         .frame(height: 24)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 1)
                         .contentShape(Rectangle())
-                        .background(selectedTab == .comment ?Color(NSColor.white.withAlphaComponent(0.4)) : Color.clear)
+                        .background(
+                            selectedTab == .comment
+                                ? Color(NSColor.white.withAlphaComponent(0.4))
+                                : (isHoveringCommentButton ? Color(NSColor.white.withAlphaComponent(0.2)) : Color.clear)
+                        )
                         .cornerRadius(12)
+                        .onHover { hovering in
+                            isHoveringCommentButton = hovering
+                        }
                     }
                     .padding(.horizontal, 2)
                     .padding(.vertical, 2)
@@ -74,12 +97,16 @@ struct HNDetailView: View {
                 perform: { newItem in
                     selectedSourceUrl = newItem.sourceUrl
                     selectedCommentUrl = newItem.commentUrl
+                    selectedTab = .page
                 }
             )
-            .onReceive(NotificationCenter.default.publisher(for: .openInBrowser), perform: { _ in
-                let url = selectedTab == .page ? selectedSourceUrl : selectedCommentUrl
-                NSWorkspace.shared.open(url)
-            })
+            .onReceive(
+                NotificationCenter.default.publisher(for: .openInBrowser),
+                perform: { _ in
+                    let url = selectedTab == .page ? selectedSourceUrl : selectedCommentUrl
+                    NSWorkspace.shared.open(url)
+                }
+            )
         }
     }
 }

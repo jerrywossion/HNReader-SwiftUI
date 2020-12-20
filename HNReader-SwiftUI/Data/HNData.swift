@@ -40,10 +40,10 @@ class HNData: ObservableObject {
     ]
 
     private func fetchHNItems() {
+        items.removeAll()
         getHNItems(
             page: currentPage,
             completion: { [self] items in
-                self.items.removeAll()
                 self.items.append(contentsOf: items)
             }
         )
