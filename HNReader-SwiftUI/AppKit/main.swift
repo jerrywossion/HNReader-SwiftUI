@@ -10,4 +10,5 @@ import AppKit
 
 let delegate = HNAppDelegate()
 NSApplication.shared.delegate = delegate
+NSApplication.shared.mainMenu = HNMenuProvider(title: "Edit")
 _ = NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv)

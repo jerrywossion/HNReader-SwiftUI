@@ -78,5 +78,7 @@ func getHNItems(page: Int = 0, completion: (([HNItem]) -> Void)?) {
             }
         }
         task.resume()
+    } else {
+        print("failed getting HN items")
     }
 }
