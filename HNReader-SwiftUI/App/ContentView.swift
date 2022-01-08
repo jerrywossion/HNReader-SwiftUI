@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection: HNItem?
     @State private var selectedItem: HNItem = HNItem(
-        rank: "",
+        rank: 0,
         title: "",
         sourceUrl: URL(string: "about:blank")!,
         commentUrl: URL(string: "about:blank")!,
@@ -28,6 +28,39 @@ struct ContentView: View {
             List(data.items, id: \.self, selection: $selection) { item in
                 HNItemView(item: item)
                     .environmentObject(userSettings)
+                    .contextMenu {
+                        Button(action: {
+                            NSWorkspace.shared.open(item.sourceUrl)
+
+                        }) {
+                            Text("Open Webpage in Browser")
+                            Image(systemName: "link.circle")
+                        }
+                        Button(action: {
+                            NSWorkspace.shared.open(item.commentUrl)
+
+                        }) {
+                            Text("Open Comments in Browser")
+                            Image(systemName: "line.2.horizontal.decrease.circle")
+                        }
+                        Divider()
+                        Button(action: {
+                            NSPasteboard.general.clearContents()
+                            NSPasteboard.general.setString(item.sourceUrl.absoluteString, forType: .string)
+
+                        }) {
+                            Text("Copy Webpage URL")
+                            Image(systemName: "link")
+                        }
+                        Button(action: {
+                            NSPasteboard.general.clearContents()
+                            NSPasteboard.general.setString(item.commentUrl.absoluteString, forType: .string)
+
+                        }) {
+                            Text("Copy Comments URL")
+                            Image(systemName: "text.bubble")
+                        }
+                    }
             }
             .frame(minWidth: 500)
             .onChange(

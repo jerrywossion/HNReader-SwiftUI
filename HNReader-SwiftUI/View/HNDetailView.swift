@@ -116,7 +116,7 @@ struct HNDetailView_Previews: PreviewProvider {
         HNDetailView(
             item: .constant(
                 HNItem(
-                    rank: "1. ",
+                    rank: 0,
                     title: "Test title",
                     sourceUrl: URL(string: "https://www.google.com")!,
                     commentUrl: URL(string: "https://www.google.com")!,

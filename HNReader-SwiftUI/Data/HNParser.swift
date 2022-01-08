@@ -25,9 +25,10 @@ func getHNItems(page: Int = 0, completion: (([HNItem]) -> Void)?) {
                 var items: [HNItem] = []
                 for athing in athings {
                     guard
-                        let rank = try athing.select(".title").first()?.select("td").first()?.select("span")
+                        let rankText = try athing.select(".title").first()?.select("td").first()?.select("span")
                             .first()?
-                            .text()
+                            .text(),
+                        let rank = Int(rankText.replacingOccurrences(of: ".", with: ""))
                     else { continue }
 
                     guard let titleElement = try athing.select(".title").last() else { continue }
@@ -71,7 +72,7 @@ func getHNItems(page: Int = 0, completion: (([HNItem]) -> Void)?) {
                     )
                 }
                 DispatchQueue.main.async {
-                    completion?(items)
+                    completion?(items.sorted(by: { $0.rank < $1.rank }))
                 }
             } catch {
 

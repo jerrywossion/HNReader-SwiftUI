@@ -14,7 +14,7 @@ struct HNItemView: View {
 
     var body: some View {
         HStack(alignment: .top) {
-            Text(item.rank)
+            Text("\(item.rank)")
                 .frame(alignment: .top)
                 .foregroundColor(.orange)
 
@@ -47,7 +47,7 @@ struct HNItemView_Previews: PreviewProvider {
         HNItemView(
             item:
                 HNItem(
-                    rank: "1. ",
+                    rank: 0,
                     title: "Test title",
                     sourceUrl: URL(string: "https://www.google.com")!,
                     commentUrl: URL(string: "https://www.google.com")!,

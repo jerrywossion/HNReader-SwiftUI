@@ -67,7 +67,7 @@ class HNToolbarProvider: NSObject, NSToolbarDelegate {
                 itemIdentifier: itemIdentifier,
                 action: #selector(onOpenInBrowser(_:)),
                 label: "Open in browser",
-                imageSymbol: .safari
+                imageSymbol: .globe
             )
         default:
             break

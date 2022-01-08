@@ -32,6 +32,7 @@ enum SFSymbol: String {
     case arrowForward = "arrow.forward"
     case newspaper = "newspaper"
     case safari = "safari"
+    case globe = "globe"
     case sidebarLeft = "sidebar.left"
 }
 

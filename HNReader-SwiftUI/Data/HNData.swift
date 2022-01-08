@@ -10,7 +10,7 @@ import Combine
 import Foundation
 
 struct HNItem: Equatable, Hashable {
-    var rank: String
+    var rank: Int
     var title: String
     var sourceUrl: URL
     var commentUrl: URL

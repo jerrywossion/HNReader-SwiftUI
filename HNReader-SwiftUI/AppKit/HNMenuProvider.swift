@@ -18,13 +18,7 @@ class HNMenuProvider: NSMenu {
             NSMenuItem(title: "About", action: #selector(about(_:)), keyEquivalent: "a")
         ]
 
-        let editMenu = NSMenuItem()
-        editMenu.submenu = NSMenu(title: "Edit")
-        editMenu.submenu?.items = [
-            NSMenuItem(title: "Copy", action: #selector(copy(_:)), keyEquivalent: "c"),
-        ]
-
-        items = [aboutMenu, editMenu]
+        items = [aboutMenu]
     }
 
     required init(coder: NSCoder) {
@@ -33,9 +27,5 @@ class HNMenuProvider: NSMenu {
 
     @objc func about(_ sender: Any?) {
         print("HNReader-SwiftUI")
-    }
-
-    @objc func copy(_ sender: Any?) {
-
     }
 }
