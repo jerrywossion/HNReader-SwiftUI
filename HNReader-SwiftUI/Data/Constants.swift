@@ -21,6 +21,7 @@ extension Notification.Name {
     static let prevPage = Notification.Name("prevPage")
     static let nextPage = Notification.Name("nextPage")
     static let openInBrowser = Notification.Name("openInBrowser")
+    static let findOnPage = Notification.Name("findOnPage")
 }
 
 enum UserInfoKey: String {

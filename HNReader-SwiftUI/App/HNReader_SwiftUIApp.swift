@@ -8,20 +8,22 @@
 
 import SwiftUI
 
-//@main
+@main
 struct HNReader_SwiftUIApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @NSApplicationDelegateAdaptor(HNAppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .commands {
+            CommandMenu("Find") {
+                Button("Find on page") {
+                    NotificationCenter.default.post(name: .findOnPage, object: nil)
+                }
+                .keyboardShortcut("f")
+            }
+        }
         .windowToolbarStyle(UnifiedWindowToolbarStyle(showsTitle: false))
-    }
-}
-
-class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        true
     }
 }

@@ -67,6 +67,7 @@ class WebViewController: NSViewController {
     private var loaded: Bool = false
 
     private var subscription: AnyCancellable?
+    private var cancellables: Set<AnyCancellable> = []
 
     override func loadView() {
         view = NSView()
@@ -117,6 +118,9 @@ class WebViewController: NSViewController {
                     self?.progressBar.isHidden = false
                 }
             }
+        NotificationCenter.default.publisher(for: .findOnPage, object: nil).sink { [weak self] _ in
+            guard let self = self else { return }
+        }.store(in: &cancellables)
     }
 
     deinit {

@@ -17,27 +17,33 @@ struct HNItemView: View {
             Text("\(item.rank)")
                 .frame(alignment: .top)
                 .foregroundColor(.orange)
+                .padding(.top, 5)
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 5) {
                 if userSettings.visitedUrls.contains(where: { (url, _) -> Bool in url == item.sourceUrl.absoluteString }
                 ) {
                     Text(item.title)
                         .frame(alignment: .leading)
                         .foregroundColor(.gray)
+                        .font(.custom("Avenir Next", size: 16))
+                        .lineLimit(3)
                 } else {
                     Text(item.title)
                         .frame(alignment: .leading)
+                        .foregroundColor(.black)
+                        .font(.custom("Avenir Next", size: 16))
+                        .lineLimit(3)
                 }
 
-                HStack {
+                HStack(spacing: 20) {
                     Text(item.score)
                     Text(item.age)
                     Text(item.comments)
                     Text(item.from)
                 }
-                .font(.footnote)
                 .foregroundColor(.gray)
             }
+            .padding(.bottom, 5)
         }
     }
 }
