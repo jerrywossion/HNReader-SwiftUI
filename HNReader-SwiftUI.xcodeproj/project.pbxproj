@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		847393B7258B2CBE003E168E /* HNDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847393B6258B2CBE003E168E /* HNDetailView.swift */; };
-		84B3A151258A02AA009329D1 /* HNToolbarProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A150258A02AA009329D1 /* HNToolbarProvider.swift */; };
-		84B3A177258A1179009329D1 /* HNAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A176258A1179009329D1 /* HNAppDelegate.swift */; };
 		84CD4A2625875B3F00302F8F /* HNWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD4A2525875B3F00302F8F /* HNWebViewController.swift */; };
 		84CD4A2E2587991000302F8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD4A2D2587991000302F8F /* Constants.swift */; };
 		E89ADAB62585D1CD00AC8828 /* HNReader_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89ADAB52585D1CD00AC8828 /* HNReader_SwiftUIApp.swift */; };
@@ -24,8 +22,6 @@
 
 /* Begin PBXFileReference section */
 		847393B6258B2CBE003E168E /* HNDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNDetailView.swift; sourceTree = "<group>"; };
-		84B3A150258A02AA009329D1 /* HNToolbarProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNToolbarProvider.swift; sourceTree = "<group>"; };
-		84B3A176258A1179009329D1 /* HNAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNAppDelegate.swift; sourceTree = "<group>"; };
 		84CD4A2525875B3F00302F8F /* HNWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNWebViewController.swift; sourceTree = "<group>"; };
 		84CD4A2D2587991000302F8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E89ADAB22585D1CD00AC8828 /* HNReader-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HNReader-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,8 +52,6 @@
 			isa = PBXGroup;
 			children = (
 				84CD4A2525875B3F00302F8F /* HNWebViewController.swift */,
-				84B3A150258A02AA009329D1 /* HNToolbarProvider.swift */,
-				84B3A176258A1179009329D1 /* HNAppDelegate.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -220,8 +214,6 @@
 				E89ADAC92585DED500AC8828 /* HNParser.swift in Sources */,
 				84CD4A2E2587991000302F8F /* Constants.swift in Sources */,
 				E89ADAD12585E23800AC8828 /* HNData.swift in Sources */,
-				84B3A151258A02AA009329D1 /* HNToolbarProvider.swift in Sources */,
-				84B3A177258A1179009329D1 /* HNAppDelegate.swift in Sources */,
 				E89ADAD52585E52D00AC8828 /* HNItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
